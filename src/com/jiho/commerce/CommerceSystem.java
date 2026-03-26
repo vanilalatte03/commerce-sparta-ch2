@@ -1,35 +1,59 @@
 package com.jiho.commerce;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CommerceSystem {
-    private final List<Product> products;
+    private final List<Category> categories;
+    private final Scanner sc;
 
-    public CommerceSystem(List<Product> products) {
-        this.products = products;
+    public CommerceSystem(List<Category> categories, Scanner sc) {
+        this.categories = categories;
+        this.sc = sc;
     }
 
     void start() {
-        Scanner sc = new Scanner(System.in);
         while (true){
-            System.out.println("[ 실시간 커머스 플랫폼 - 전자제품 ]");
-            for (int i = 0; i < products.size(); i++) {
-                Product currentProduct = products.get(i);
-                System.out.printf("%d. %-15s | %,10d원 | %s\n", i+1,
-                        currentProduct.getProductName(),
-                        currentProduct.getPrice(),
-                        currentProduct.getDescription());
+            System.out.println("[ 실시간 커머스 플랫폼 메인 ]");
+            for (int i = 0; i <  categories.size(); i++) {
+                System.out.println((i + 1) + ". " + categories.get(i).getCategoryName());
             }
-            System.out.println("0. 종료            | 프로그램 종료");
+            System.out.println("0. 종료      | 프로그램 종료");
+            int chooseCategory = sc.nextInt();
 
-            int choose = sc.nextInt();
-            if (choose == 0){
-                System.out.println("\n커머스 플랫폼을 종료합니다.");
+            if (chooseCategory == 0) {
+                System.out.println("커머스 플랫폼을 종료합니다.");
                 return;
             }
-            System.out.println(products.get(choose-1).getProductName() + "을 구매하셨군요!");
+
+            Category category = categories.get(chooseCategory - 1);
+
+            System.out.println();
+            System.out.println("[ " + category.getCategoryName() + " 카테고리 ]");
+
+            for (int i = 0; i < category.getProducts().size(); i++) {
+                Product product = category.getProducts().get(i);
+                System.out.printf("%d. %-11s | %,10d원 | %s\n",
+                        i + 1,
+                        product.getProductName(),
+                        product.getPrice(),
+                        product.getDescription());
+            }
+            System.out.println("0. 뒤로가기");
+
+            int chooseProduct = sc.nextInt();
+
+            if (chooseProduct == 0) {
+                System.out.println();
+                continue;
+            }
+
+            Product product = category.getProducts().get(chooseProduct - 1);
+            System.out.printf("선택한 상품: %s | %,d원 | %s | 재고: %d개\n\n",
+                    product.getProductName(),
+                    product.getPrice(),
+                    product.getDescription(),
+                    product.getStock());
         }
     }
 }
