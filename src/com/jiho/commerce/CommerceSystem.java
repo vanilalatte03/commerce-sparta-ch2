@@ -6,6 +6,7 @@ public class CommerceSystem {
     private final List<Category> categories;
     private final List<ShoppingBasket> shoppingBaskets;
     private final Scanner sc;
+    private static Product product;
 
     public CommerceSystem(List<Category> categories, List<ShoppingBasket> shoppingBaskets, Scanner sc) {
         this.categories = categories;
@@ -45,6 +46,20 @@ public class CommerceSystem {
                 System.out.println("[ 총 주문 금액 ]");
                 System.out.printf("%,10d원\n\n", sumPrice);
 
+                System.out.println("1. 주문 확정      2. 메인으로 돌아가기");
+                int chooseOrder = sc.nextInt();
+                if (chooseOrder == 1){
+                    System.out.printf("주문이 완료되었습니다! 총 금액: %,10d원\n", sumPrice);
+                    for(int i = 0; i < shoppingBaskets.size(); i++){
+                        System.out.printf("%s 재고가 %d개 → ",
+                                shoppingBaskets.get(i).getProductName(),
+                                product.getStock()
+                                );
+                        product.setStock(product.getStock() - shoppingBaskets.get(i).getQuantity());
+                        System.out.printf("%d개로 업데이트되었습니다.\n",product.getStock());
+                        shoppingBaskets.clear();
+                    }
+                }
                 continue;
             }
 
@@ -88,7 +103,7 @@ public class CommerceSystem {
                 continue;
             }
 
-            Product product = category.getProducts().get(chooseProduct - 1);
+            product = category.getProducts().get(chooseProduct - 1);
             System.out.printf("선택한 상품: %s | %,d원 | %s | 재고: %d개\n\n",
                     product.getProductName(),
                     product.getPrice(),
@@ -108,14 +123,6 @@ public class CommerceSystem {
                 }
             }
 
-
-
-
-            /*System.out.println("현재 장바구니에 담긴 상품 목록");
-            ShoppingBasket shoppingBasket = shoppingBaskets.get(0);
-            System.out.printf(shoppingBasket.getProductName(),
-                    shoppingBasket.getQuantity(),
-                    shoppingBasket.getPriceInformation());*/
         }
     }
 }
