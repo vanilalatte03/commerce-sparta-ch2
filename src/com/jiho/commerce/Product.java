@@ -1,10 +1,11 @@
 package com.jiho.commerce;
 
+//상품
 public class Product {
-    private final String productName;
-    private final int price;
-    private final String description;
-    private final int stock;
+    private final String productName; //상품명
+    private final int price; //가격
+    private final String description; //설명
+    private final int stock; //재고
 
     public Product(String productName, int price, String description, int stock) {
         this.productName = productName;

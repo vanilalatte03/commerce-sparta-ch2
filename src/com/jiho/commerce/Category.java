@@ -2,9 +2,10 @@ package com.jiho.commerce;
 
 import java.util.List;
 
+//카테고리
 public class Category {
-    private final String categoryName;
-    private final List<Product> products;
+    private final String categoryName; //카테고리 이름
+    private final List<Product> products; // 상품 목록
 
     public Category(String categoryName, List<Product> products) {
         this.categoryName = categoryName;

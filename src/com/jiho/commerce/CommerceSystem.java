@@ -1,14 +1,15 @@
 package com.jiho.commerce;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CommerceSystem {
     private final List<Category> categories;
+    private final List<ShoppingBasket> shoppingBaskets;
     private final Scanner sc;
 
-    public CommerceSystem(List<Category> categories, Scanner sc) {
+    public CommerceSystem(List<Category> categories, List<ShoppingBasket> shoppingBaskets, Scanner sc) {
         this.categories = categories;
+        this.shoppingBaskets = shoppingBaskets;
         this.sc = sc;
     }
 
@@ -19,17 +20,26 @@ public class CommerceSystem {
                 System.out.println((i + 1) + ". " + categories.get(i).getCategoryName());
             }
             System.out.println("0. 종료      | 프로그램 종료");
-            int chooseCategory = sc.nextInt();
+            int chooseCategory= sc.nextInt();
 
             if (chooseCategory == 0) {
                 System.out.println("커머스 플랫폼을 종료합니다.");
                 return;
+            } else if (chooseCategory < 0 || chooseCategory > categories.size()){
+                System.out.println("유효하지 않은 카테고리 번호입니다.");
+                continue;
             }
+
+
 
             Category category = categories.get(chooseCategory - 1);
 
             System.out.println();
-            System.out.println("[ " + category.getCategoryName() + " 카테고리 ]");
+            try {
+                System.out.println("[ " + category.getCategoryName() + " 카테고리 ]");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
 
             for (int i = 0; i < category.getProducts().size(); i++) {
                 Product product = category.getProducts().get(i);
@@ -46,6 +56,9 @@ public class CommerceSystem {
             if (chooseProduct == 0) {
                 System.out.println();
                 continue;
+            } else if (chooseProduct < 0|| chooseProduct > category.getProducts().size()) {
+                System.out.println("유효하지 않은 상품 번호입니다.");
+                continue;
             }
 
             Product product = category.getProducts().get(chooseProduct - 1);
@@ -54,6 +67,26 @@ public class CommerceSystem {
                     product.getPrice(),
                     product.getDescription(),
                     product.getStock());
+
+            System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
+            System.out.println("1. 확인       2. 취소");
+            int chooseShoppingBaskets = sc.nextInt();
+            if (chooseShoppingBaskets == 1){
+                ShoppingBasket shoppingBasket = new ShoppingBasket(product.getProductName(), 1, product.getPrice());
+                shoppingBaskets.add(shoppingBasket);
+            }
+
+            System.out.println(product.getProductName() + "가 장바구니에 추가되었습니다.");
+
+
+
+
+            /*System.out.println("현재 장바구니에 담긴 상품 목록");
+            ShoppingBasket shoppingBasket = shoppingBaskets.get(0);
+            System.out.printf(shoppingBasket.getProductName(),
+                    shoppingBasket.getQuantity(),
+                    shoppingBasket.getPriceInformation());*/
         }
     }
 }
+

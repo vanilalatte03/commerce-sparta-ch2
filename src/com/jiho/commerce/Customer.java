@@ -1,9 +1,10 @@
 package com.jiho.commerce;
 
+//고객
 public class Customer {
-    private final String customerName;
-    private final String email;
-    private final String grade;
+    private final String customerName; //고객 이름
+    private final String email; //이메일
+    private final String grade; //등급
 
     public Customer(String customerName, String email, String grade) {
         this.customerName = customerName;

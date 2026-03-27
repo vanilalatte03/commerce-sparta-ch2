@@ -29,8 +29,10 @@ public class Main {
         categories.add(clothes);
         categories.add(foods);
 
+        List<ShoppingBasket> shoppingBaskets = new ArrayList<>();
+
         Scanner sc = new Scanner(System.in);
-        CommerceSystem commerceSystem = new CommerceSystem(categories, sc);
+        CommerceSystem commerceSystem = new CommerceSystem(categories, shoppingBaskets, sc);
         commerceSystem.start();
 
     }
