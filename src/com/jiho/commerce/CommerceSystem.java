@@ -72,11 +72,16 @@ public class CommerceSystem {
             System.out.println("1. 확인       2. 취소");
             int chooseShoppingBaskets = sc.nextInt();
             if (chooseShoppingBaskets == 1){
-                ShoppingBasket shoppingBasket = new ShoppingBasket(product.getProductName(), 1, product.getPrice());
-                shoppingBaskets.add(shoppingBasket);
+                if (product.getStock() == 0){
+                    System.out.println("재고가 부족합니다.");
+                } else {
+                    ShoppingBasket shoppingBasket = new ShoppingBasket(product.getProductName(), 1, product.getPrice());
+                    shoppingBaskets.add(shoppingBasket);
+                    System.out.println(product.getProductName() + "가 장바구니에 추가되었습니다.");
+                    product.setStock(product.getStock()-1);
+                    System.out.println("남은 재고: " + product.getStock());
+                }
             }
-
-            System.out.println(product.getProductName() + "가 장바구니에 추가되었습니다.");
 
 
 

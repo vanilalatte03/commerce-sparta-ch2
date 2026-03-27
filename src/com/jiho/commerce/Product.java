@@ -5,7 +5,7 @@ public class Product {
     private final String productName; //상품명
     private final int price; //가격
     private final String description; //설명
-    private final int stock; //재고
+    private int stock; //재고
 
     public Product(String productName, int price, String description, int stock) {
         this.productName = productName;
@@ -22,6 +22,10 @@ public class Product {
         return stock;
     }
 
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -29,4 +33,6 @@ public class Product {
     public int getPrice() {
         return price;
     }
+
+
 }
