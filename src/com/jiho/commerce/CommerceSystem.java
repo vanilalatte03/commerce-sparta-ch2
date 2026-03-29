@@ -6,7 +6,6 @@ public class CommerceSystem {
     private final List<Category> categories;
     private final List<ShoppingBasket> shoppingBaskets;
     private final Scanner sc;
-    private static Product product;
 
     public CommerceSystem(List<Category> categories, List<ShoppingBasket> shoppingBaskets, Scanner sc) {
         this.categories = categories;
@@ -36,12 +35,14 @@ public class CommerceSystem {
                 System.out.println("[ 장바구니 내역 ]");
                 int sumPrice = 0;
                 for (int i = 0; i < shoppingBaskets.size(); i++) {
+                    ShoppingBasket basket = shoppingBaskets.get(i);
+                    Product product = basket.getProduct();
                     System.out.printf("%d. %-11s | %,10d원 | 수량: %s개\n",
                             i + 1,
-                            shoppingBaskets.get(i).getProductName(),
-                            shoppingBaskets.get(i).getPriceInformation(),
-                            shoppingBaskets.get(i).getQuantity());
-                    sumPrice += shoppingBaskets.get(i).getPriceInformation();
+                            product.getProductName(),
+                            product.getPrice(),
+                            basket.getQuantity());
+                    sumPrice += product.getPrice() * basket.getQuantity();
                 }
                 System.out.println("[ 총 주문 금액 ]");
                 System.out.printf("%,10d원\n\n", sumPrice);
@@ -51,14 +52,16 @@ public class CommerceSystem {
                 if (chooseOrder == 1){
                     System.out.printf("주문이 완료되었습니다! 총 금액: %,10d원\n", sumPrice);
                     for(int i = 0; i < shoppingBaskets.size(); i++){
+                        ShoppingBasket basket = shoppingBaskets.get(i);
+                        Product product = basket.getProduct();
                         System.out.printf("%s 재고가 %d개 → ",
-                                shoppingBaskets.get(i).getProductName(),
+                                product.getProductName(),
                                 product.getStock()
                                 );
-                        product.setStock(product.getStock() - shoppingBaskets.get(i).getQuantity());
+                        product.setStock(product.getStock() - basket.getQuantity());
                         System.out.printf("%d개로 업데이트되었습니다.\n",product.getStock());
-                        shoppingBaskets.clear();
                     }
+                    shoppingBaskets.clear();
                 }
                 continue;
             }
@@ -103,7 +106,7 @@ public class CommerceSystem {
                 continue;
             }
 
-            product = category.getProducts().get(chooseProduct - 1);
+            Product product = category.getProducts().get(chooseProduct - 1);
             System.out.printf("선택한 상품: %s | %,d원 | %s | 재고: %d개\n\n",
                     product.getProductName(),
                     product.getPrice(),
@@ -113,12 +116,20 @@ public class CommerceSystem {
             System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
             System.out.println("1. 확인       2. 취소");
             int chooseShoppingBaskets = sc.nextInt();
+
+            int basketQuantity = 0; //장바구니 담긴 같은 상품 수량
+
             if (chooseShoppingBaskets == 1){
-                if (product.getStock() == 0){
+                for (ShoppingBasket basket : shoppingBaskets) {
+                    if (basket.getProduct() == product) {
+                        basketQuantity += basket.getQuantity();
+                    }
+                }
+
+                if (basketQuantity >= product.getStock()){
                     System.out.println("재고가 부족합니다.");
                 } else {
-                    ShoppingBasket shoppingBasket = new ShoppingBasket(product.getProductName(), 1, product.getPrice());
-                    shoppingBaskets.add(shoppingBasket);
+                    shoppingBaskets.add(new ShoppingBasket(product, 1));
                     System.out.println(product.getProductName() + "가 장바구니에 추가되었습니다.");
                 }
             }

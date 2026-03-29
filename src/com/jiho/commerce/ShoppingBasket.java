@@ -4,25 +4,21 @@ import java.util.List;
 
 //장바구니
 public class ShoppingBasket {
-    private final String productName; //상품명
+    private final Product product; //상품명, 가격
     private final int quantity; //수량
-    private final int priceInformation; //가격 정보
 
-    public ShoppingBasket(String productName, int quantity, int priceInformation) {
-        this.productName = productName;
+    public ShoppingBasket(Product product, int quantity) {
+        this.product = product;
         this.quantity = quantity;
-        this.priceInformation = priceInformation;
     }
 
-    public String getProductName() {
-        return productName;
+    public Product getProduct() {
+        return product;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public int getPriceInformation() {
-        return priceInformation;
-    }
 }
+
