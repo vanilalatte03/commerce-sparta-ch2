@@ -32,7 +32,9 @@ public class Main {
         List<ShoppingBasket> shoppingBaskets = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
-        CommerceSystem commerceSystem = new CommerceSystem(categories, shoppingBaskets, sc);
+        //InputConsole inputConsole = new InputConsole(sc);
+        Cart carts = new Cart(shoppingBaskets);
+        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, sc);
         commerceSystem.start();
 
     }
