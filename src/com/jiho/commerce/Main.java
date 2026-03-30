@@ -33,8 +33,9 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         //InputConsole inputConsole = new InputConsole(sc);
+        OutputConsole outputConsole = new OutputConsole();
         Cart carts = new Cart(shoppingBaskets);
-        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, sc);
+        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, sc, outputConsole);
         commerceSystem.start();
 
     }

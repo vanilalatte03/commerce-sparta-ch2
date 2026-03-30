@@ -24,7 +24,6 @@ public class Cart {
         if (product.getStock() < 1) {
             return false;
         }
-
         items.add(new ShoppingBasket(product, 1));
         return true;
     }
@@ -32,11 +31,9 @@ public class Cart {
     //최종 가격
     public int getTotalPrice() {
         int sumPrice = 0;
-
         for (ShoppingBasket basket : items) {
             sumPrice += basket.getProduct().getPrice() * basket.getQuantity();
         }
-
         return sumPrice;
     }
 
@@ -48,12 +45,9 @@ public class Cart {
             System.out.printf("%s 재고가 %d개 → ",
                     product.getProductName(),
                     product.getStock());
-
-            product.setStock(product.getStock() - basket.getQuantity());
-
+            product.decreaseStock( basket.getQuantity());
             System.out.printf("%d개로 업데이트되었습니다.\n", product.getStock());
         }
-
         clear();
     }
 

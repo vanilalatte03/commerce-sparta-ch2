@@ -22,8 +22,9 @@ public class Product {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    //재고 감소
+    public void decreaseStock(int quantity) {
+        this.stock -= quantity;
     }
 
     public String getDescription() {
