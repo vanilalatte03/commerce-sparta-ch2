@@ -9,7 +9,7 @@ public class Main {
         List<Product> electronicsProducts = new ArrayList<>();
         electronicsProducts.add(new Product("Galaxy S26", 1200000, "최신 안드로이드 스마트폰", 10));
         electronicsProducts.add(new Product("iPhone 17", 1350000, "Apple의 최신 스마트폰", 8));
-        electronicsProducts.add(new Product("MacBook Pro", 2400000, "M5 칩셋이 탑재된 노트북", 5));
+        electronicsProducts.add(new Product("MacBook Pro", 2400000, "M5 칩셋이 탑재된 노트북", 2));
         electronicsProducts.add(new Product("AirPods Pro", 350000, "노이즈 캔슬링 무선 이어폰", 0));
 
         List<Product> clothesProducts = new ArrayList<>();
@@ -37,6 +37,5 @@ public class Main {
         Cart carts = new Cart(shoppingBaskets);
         CommerceSystem commerceSystem = new CommerceSystem(categories, carts, sc, outputConsole);
         commerceSystem.start();
-
     }
 }

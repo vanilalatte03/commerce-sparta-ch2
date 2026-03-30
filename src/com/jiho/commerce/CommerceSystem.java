@@ -5,30 +5,33 @@ import java.util.*;
 public class CommerceSystem {
     private final List<Category> categories;
     private final Cart cart;
-    private final Scanner sc;
+    private final Scanner scanner;
     private final OutputConsole outputConsole;
 
-    public CommerceSystem(List<Category> categories, Cart carts, Scanner scanner, OutputConsole outputConsole) {
+    public CommerceSystem(List<Category> categories, Cart cart, Scanner scanner, OutputConsole outputConsole) {
         this.categories = categories;
-        this.cart = carts;
-        this.sc = scanner;
+        this.cart = cart;
+        this.scanner = scanner;
         this.outputConsole = outputConsole;
     }
 
     void start() {
-        while (true){
+        while (true) {
             outputConsole.printMenu(categories, cart);
 
-            int chooseCategory = sc.nextInt();
+            int chooseCategory = scanner.nextInt();
+
+            int cartMenuNumber = categories.size() + 1;
+            int cancelMenuNumber = categories.size() + 2;
 
             //장바구니 확인
-            if (!cart.isEmpty() && chooseCategory == 4) {
+            if (!cart.isEmpty() && chooseCategory == cartMenuNumber) {
                 showShoppingBasket();
                 continue;
             }
 
             //주문 취소
-            if (!cart.isEmpty() && chooseCategory == 5) {
+            if (!cart.isEmpty() && chooseCategory == cancelMenuNumber) {
                 outputConsole.printCancelOrderMessage();
                 cart.clear();
                 continue;
@@ -37,7 +40,7 @@ public class CommerceSystem {
             if (chooseCategory == 0) {
                 outputConsole.printExitMessage();
                 return;
-            } else if (chooseCategory < 0 || chooseCategory > categories.size()){ //예외
+            } else if (chooseCategory < 0 || chooseCategory > categories.size()) { //예외
                 outputConsole.printInvalidCategoryMessage();
                 continue;
             }
@@ -46,12 +49,12 @@ public class CommerceSystem {
 
             outputConsole.printProductMenu(category);
 
-            int chooseProduct = sc.nextInt();
+            int chooseProduct = scanner.nextInt();
 
             if (chooseProduct == 0) {
                 outputConsole.printBlankLine();
                 continue;
-            } else if (chooseProduct < 0|| chooseProduct > category.getProducts().size()) {//예외
+            } else if (chooseProduct < 0 || chooseProduct > category.getProducts().size()) { //예외
                 outputConsole.printInvalidProductMessage();
                 continue;
             }
@@ -60,8 +63,6 @@ public class CommerceSystem {
             outputConsole.printChooseProduct(product);
 
             addShoppingBasket(product);
-
-
         }
     }
 
@@ -69,9 +70,9 @@ public class CommerceSystem {
     void showShoppingBasket() {
         outputConsole.printShoppingBasket(cart);
         outputConsole.printOrderMenu();
-        int chooseOrder = sc.nextInt();
+        int chooseOrder = scanner.nextInt();
 
-        if (chooseOrder == 1){
+        if (chooseOrder == 1) {
             outputConsole.printOrderCompleted(cart.getTotalPrice());
             cart.checkout();
         }
@@ -80,7 +81,7 @@ public class CommerceSystem {
     //장바구니 추가
     void addShoppingBasket(Product product) {
         outputConsole.printAddShoppingBasketMenu();
-        int chooseShoppingBaskets = sc.nextInt();
+        int chooseShoppingBaskets = scanner.nextInt();
 
         if (chooseShoppingBaskets == 1) {
             if (cart.addProduct(product)) {

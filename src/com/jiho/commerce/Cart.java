@@ -1,5 +1,6 @@
 package com.jiho.commerce;
 
+import java.util.Collections;
 import java.util.List;
 
 //장바구니로 하는 일들
@@ -16,14 +17,23 @@ public class Cart {
     }
 
     public List<ShoppingBasket> getItems() {
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
     //재고 확인 후 장바구니 추가
     public boolean addProduct(Product product) {
-        if (product.getStock() < 1) {
+        int basketQuantity = 0;
+
+        for (ShoppingBasket basket : items) {
+            if (basket.getProduct() == product) {
+                basketQuantity += basket.getQuantity();
+            }
+        }
+
+        if (basketQuantity >= product.getStock()) {
             return false;
         }
+
         items.add(new ShoppingBasket(product, 1));
         return true;
     }
@@ -45,7 +55,7 @@ public class Cart {
             System.out.printf("%s 재고가 %d개 → ",
                     product.getProductName(),
                     product.getStock());
-            product.decreaseStock( basket.getQuantity());
+            product.decreaseStock(basket.getQuantity());
             System.out.printf("%d개로 업데이트되었습니다.\n", product.getStock());
         }
         clear();
