@@ -5,6 +5,8 @@ import com.jiho.commerce.cart.Cart;
 import com.jiho.commerce.cart.CartItem;
 import com.jiho.commerce.cart.CartScreen;
 import com.jiho.commerce.cart.CartView;
+import com.jiho.commerce.catalog.CatalogScreen;
+import com.jiho.commerce.catalog.CatalogView;
 import com.jiho.commerce.catalog.Category;
 import com.jiho.commerce.catalog.Product;
 import com.jiho.commerce.order.OrderService;
@@ -49,9 +51,11 @@ public class Main {
         CartView cartView = new CartView();
         CartScreen cartScreen = new CartScreen(inputConsole, cartView, carts, orderService);
 
+        CatalogView catalogView = new CatalogView();
+        CatalogScreen catalogScreen = new CatalogScreen(inputConsole, catalogView, carts);
 
 
-        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, cartScreen, inputConsole, outputConsole);
+        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, cartScreen, catalogScreen, inputConsole, outputConsole);
         commerceSystem.start();
     }
 }

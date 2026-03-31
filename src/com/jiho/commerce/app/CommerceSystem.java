@@ -4,6 +4,7 @@ import com.jiho.commerce.*;
 import com.jiho.commerce.cart.Cart;
 import com.jiho.commerce.cart.CartScreen;
 import com.jiho.commerce.cart.CartView;
+import com.jiho.commerce.catalog.CatalogScreen;
 import com.jiho.commerce.catalog.Category;
 import com.jiho.commerce.catalog.Product;
 
@@ -13,13 +14,15 @@ public class CommerceSystem {
     private final List<Category> categories;
     private final Cart cart;
     private final CartScreen cartScreen;
+    private final CatalogScreen catalogScreen;
     private final InputConsole inputConsole;
     private final OutputConsole outputConsole;
 
-    public CommerceSystem(List<Category> categories, Cart cart, CartScreen cartScreen, InputConsole inputConsole, OutputConsole outputConsole) {
+    public CommerceSystem(List<Category> categories, Cart cart, CartScreen cartScreen, CatalogScreen catalogScreen, InputConsole inputConsole, OutputConsole outputConsole) {
         this.categories = categories;
         this.cart = cart;
         this.cartScreen = cartScreen;
+        this.catalogScreen = catalogScreen;
         this.inputConsole = inputConsole;
         this.outputConsole = outputConsole;
     }
@@ -54,37 +57,11 @@ public class CommerceSystem {
                 continue;
             }
 
-            Category category = categories.get(chooseCategory - 1);
-            outputConsole.printProductMenu(category);
+            Category selectedCategory = categories.get(chooseCategory - 1);
+            catalogScreen.show(selectedCategory);
 
-            int chooseProduct = inputConsole.readInt();
-            if (chooseProduct == 0) {
-                outputConsole.printBlankLine();
-                continue;
-            } else if (chooseProduct < 0 || chooseProduct > category.getProducts().size()) { //예외
-                outputConsole.printInvalidProductMessage();
-                continue;
-            }
-
-            Product product = category.getProducts().get(chooseProduct - 1);
-            outputConsole.printChooseProduct(product);
-
-            addCart(product);
         }
     }
 
-    //장바구니 추가
-    public void addCart(Product product) {
-        outputConsole.printAddCartMenu();
-        int chooseShoppingBaskets = inputConsole.readInt();
-
-        if (chooseShoppingBaskets == 1) {
-            if (cart.addProduct(product)) {
-                outputConsole.printAddCartSuccess(product);
-            } else {
-                outputConsole.printSoldOutStockMessage();
-            }
-        }
-    }
 }
 
