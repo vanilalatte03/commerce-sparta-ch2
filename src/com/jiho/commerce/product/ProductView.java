@@ -1,6 +1,6 @@
-package com.jiho.commerce.catalog;
+package com.jiho.commerce.product;
 
-public class CatalogView {
+public class ProductView {
 
     //상품 메뉴
     void printProductMenu(Category category) {
@@ -34,12 +34,12 @@ public class CatalogView {
 
     //장바구니 추가 성공
     void printAddCartSuccess(Product product) {
-        System.out.println(product.getProductName() + "가 장바구니에 추가되었습니다.");
+        System.out.println(product.getProductName() + "가 장바구니에 추가되었습니다.\n");
     }
 
     //재고 부족
     void printSoldOutStockMessage() {
-        System.out.println("재고가 부족합니다.");
+        System.out.println("재고가 부족합니다.\n");
     }
 
     //유효x

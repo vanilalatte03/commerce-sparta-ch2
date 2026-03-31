@@ -1,4 +1,4 @@
-package com.jiho.commerce.catalog;
+package com.jiho.commerce.product;
 
 //상품
 public class Product {

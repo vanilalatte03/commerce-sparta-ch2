@@ -1,16 +1,16 @@
-package com.jiho.commerce.catalog;
+package com.jiho.commerce.product;
 
 import com.jiho.commerce.InputConsole;
 import com.jiho.commerce.cart.Cart;
 
-public class CatalogScreen {
+public class ProductController {
     private final InputConsole inputConsole;
-    private final CatalogView catalogView;
+    private final ProductView productView;
     private final Cart cart;
 
-    public CatalogScreen(InputConsole inputConsole, CatalogView catalogView, Cart cart) {
+    public ProductController(InputConsole inputConsole, ProductView productView, Cart cart) {
         this.inputConsole = inputConsole;
-        this.catalogView = catalogView;
+        this.productView = productView;
         this.cart = cart;
     }
 
@@ -20,36 +20,36 @@ public class CatalogScreen {
      * @param category 현재 조회 중인 카테고리
      */
     public void show(Category category) {
-        catalogView.printProductMenu(category);
+        productView.printProductMenu(category);
 
         int chooseProduct = inputConsole.readInt();
 
         //메인 메뉴로 복귀
         if (chooseProduct == 0) {
-            catalogView.printBlankLine();
+            productView.printBlankLine();
             return;
         }
 
         if (chooseProduct < 1 || chooseProduct > category.getProducts().size()) {
-            catalogView.printInvalidProductMessage();
+            productView.printInvalidProductMessage();
             return;
         }
 
         Product product = category.getProducts().get(chooseProduct - 1);
-        catalogView.printChooseProduct(product);
-        addCart(product);
+        productView.printChooseProduct(product);
+        confirmAddToCart(product);
     }
 
-    //장바구니에 상품 추가
-    private void addCart(Product product) {
-        catalogView.printAddCartMenu();
+    //선택한 상품의 장바구니 추가 여부를 확인하고 결과를 처리
+    private void confirmAddToCart(Product product) {
+        productView.printAddCartMenu();
         int chooseShoppingBaskets = inputConsole.readInt();
 
         if (chooseShoppingBaskets == 1) {
             if (cart.addProduct(product)) {
-                catalogView.printAddCartSuccess(product);
+                productView.printAddCartSuccess(product);
             } else {
-                catalogView.printSoldOutStockMessage();
+                productView.printSoldOutStockMessage();
             }
         }
     }

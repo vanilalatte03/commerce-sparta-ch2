@@ -1,4 +1,4 @@
-package com.jiho.commerce.catalog;
+package com.jiho.commerce.product;
 
 import java.util.List;
 

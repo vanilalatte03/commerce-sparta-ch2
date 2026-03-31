@@ -2,7 +2,7 @@ package com.jiho.commerce.order;
 
 import com.jiho.commerce.cart.Cart;
 import com.jiho.commerce.cart.CartItem;
-import com.jiho.commerce.catalog.Product;
+import com.jiho.commerce.product.Product;
 
 public class OrderService {
     /**
@@ -17,16 +17,7 @@ public class OrderService {
 
         for (CartItem cartItem : cart.getItems()) {
             Product product = cartItem.getProduct();
-
-            int beforeStock = product.getStock();
             product.decreaseStock(cartItem.getQuantity());
-            int afterStock = product.getStock();
-
-            //출력 분리 못한거
-            System.out.printf("%s 재고가 %d개 -> %d개로 변경되었습니다.%n",
-                    product.getProductName(),
-                    beforeStock,
-                    afterStock);
         }
 
         cart.clear();

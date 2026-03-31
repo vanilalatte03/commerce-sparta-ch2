@@ -12,4 +12,8 @@ public class InputConsole {
     public int readInt() {
         return sc.nextInt();
     }
+
+    public String readPassword(){
+        return sc.next();
+    }
 }

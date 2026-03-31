@@ -1,6 +1,6 @@
 package com.jiho.commerce.cart;
 
-import com.jiho.commerce.catalog.Product;
+import com.jiho.commerce.product.Product;
 
 //장바구니
 public class CartItem {

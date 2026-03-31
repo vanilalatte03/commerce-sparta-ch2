@@ -1,14 +1,16 @@
 package com.jiho.commerce.app;
 
 import com.jiho.commerce.*;
+import com.jiho.commerce.admin.AdminController;
+import com.jiho.commerce.admin.AdminView;
 import com.jiho.commerce.cart.Cart;
 import com.jiho.commerce.cart.CartItem;
-import com.jiho.commerce.cart.CartScreen;
-import com.jiho.commerce.cart.CartView;
-import com.jiho.commerce.catalog.CatalogScreen;
-import com.jiho.commerce.catalog.CatalogView;
-import com.jiho.commerce.catalog.Category;
-import com.jiho.commerce.catalog.Product;
+import com.jiho.commerce.order.OrderController;
+import com.jiho.commerce.order.OrderView;
+import com.jiho.commerce.product.Category;
+import com.jiho.commerce.product.ProductController;
+import com.jiho.commerce.product.ProductView;
+import com.jiho.commerce.product.Product;
 import com.jiho.commerce.order.OrderService;
 
 import java.util.ArrayList;
@@ -49,13 +51,16 @@ public class Main {
         OrderService orderService = new OrderService();
 
         Cart carts = new Cart(cartItems);
-        CartView cartView = new CartView();
-        CartScreen cartScreen = new CartScreen(inputConsole, cartView, carts, orderService);
+        OrderView orderView = new OrderView();
+        OrderController cartScreen = new OrderController(inputConsole, orderView, carts, orderService);
 
-        CatalogView catalogView = new CatalogView();
-        CatalogScreen catalogScreen = new CatalogScreen(inputConsole, catalogView, carts);
+        ProductView productView = new ProductView();
+        ProductController productScreen = new ProductController(inputConsole, productView, carts);
 
-        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, cartScreen, catalogScreen, inputConsole, mainView);
+        AdminView adminView = new AdminView();
+        AdminController adminController = new AdminController(inputConsole, adminView);
+
+        MainController commerceSystem = new MainController(categories, carts, cartScreen, productScreen, adminController, inputConsole, mainView);
         commerceSystem.start();
     }
 }
