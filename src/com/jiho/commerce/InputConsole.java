@@ -13,7 +13,7 @@ public class InputConsole {
         return sc.nextInt();
     }
 
-    public String readPassword(){
-        return sc.next();
+    public String readLine() {
+        return sc.nextLine().trim();
     }
 }
