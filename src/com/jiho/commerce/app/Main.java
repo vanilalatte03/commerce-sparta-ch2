@@ -1,4 +1,13 @@
-package com.jiho.commerce;
+package com.jiho.commerce.app;
+
+import com.jiho.commerce.*;
+import com.jiho.commerce.cart.Cart;
+import com.jiho.commerce.cart.CartItem;
+import com.jiho.commerce.cart.CartScreen;
+import com.jiho.commerce.cart.CartView;
+import com.jiho.commerce.catalog.Category;
+import com.jiho.commerce.catalog.Product;
+import com.jiho.commerce.order.OrderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +38,20 @@ public class Main {
         categories.add(clothes);
         categories.add(foods);
 
-        List<ShoppingBasket> shoppingBaskets = new ArrayList<>();
+        List<CartItem> cartItems = new ArrayList<>();
 
-        Scanner sc = new Scanner(System.in);
-        //InputConsole inputConsole = new InputConsole(sc);
+        Scanner scanner = new Scanner(System.in);
+        InputConsole inputConsole = new InputConsole(scanner);
         OutputConsole outputConsole = new OutputConsole();
-        Cart carts = new Cart(shoppingBaskets);
-        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, sc, outputConsole);
+        OrderService orderService = new OrderService();
+
+        Cart carts = new Cart(cartItems);
+        CartView cartView = new CartView();
+        CartScreen cartScreen = new CartScreen(inputConsole, cartView, carts, orderService);
+
+
+
+        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, cartScreen, inputConsole, outputConsole);
         commerceSystem.start();
     }
 }

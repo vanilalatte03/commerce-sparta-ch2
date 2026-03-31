@@ -1,13 +1,15 @@
-package com.jiho.commerce;
+package com.jiho.commerce.cart;
+
+import com.jiho.commerce.catalog.Product;
 
 import java.util.Collections;
 import java.util.List;
 
 //장바구니로 하는 일들
 public class Cart {
-    private final List<ShoppingBasket> items;
+    private final List<CartItem> items;
 
-    public Cart(List<ShoppingBasket> items) {
+    public Cart(List<CartItem> items) {
         this.items = items;
     }
 
@@ -16,15 +18,26 @@ public class Cart {
         return items.isEmpty();
     }
 
-    public List<ShoppingBasket> getItems() {
+    /**
+     * 장바구니 항목을 읽기 전용으로 반환한다.
+     *
+     * @return 수정할 수 없는 장바구니 항목 목록
+     */
+    public List<CartItem> getItems() {
         return Collections.unmodifiableList(items);
     }
 
-    //재고 확인 후 장바구니 추가
+    /**
+     * 상품을 장바구니에 1개 추가한다.
+     * 이미 장바구니에 담긴 동일 상품 수량까지 포함해 재고를 검사한다.
+     *
+     * @param product 추가할 상품
+     * @return 장바구니 추가 성공 여부
+     */
     public boolean addProduct(Product product) {
         int basketQuantity = 0;
 
-        for (ShoppingBasket basket : items) {
+        for (CartItem basket : items) {
             if (basket.getProduct() == product) {
                 basketQuantity += basket.getQuantity();
             }
@@ -34,31 +47,17 @@ public class Cart {
             return false;
         }
 
-        items.add(new ShoppingBasket(product, 1));
+        items.add(new CartItem(product, 1));
         return true;
     }
 
     //최종 가격
     public int getTotalPrice() {
         int sumPrice = 0;
-        for (ShoppingBasket basket : items) {
+        for (CartItem basket : items) {
             sumPrice += basket.getProduct().getPrice() * basket.getQuantity();
         }
         return sumPrice;
-    }
-
-    //재고 차감
-    public void checkout() {
-        for (ShoppingBasket basket : items) {
-            Product product = basket.getProduct();
-
-            System.out.printf("%s 재고가 %d개 → ",
-                    product.getProductName(),
-                    product.getStock());
-            product.decreaseStock(basket.getQuantity());
-            System.out.printf("%d개로 업데이트되었습니다.\n", product.getStock());
-        }
-        clear();
     }
 
     //장바구니 비우기

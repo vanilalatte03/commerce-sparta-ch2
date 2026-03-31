@@ -9,7 +9,7 @@ public class InputConsole {
         this.sc = sc;
     }
 
-    public int readInt(){
+    public int readInt() {
         return sc.nextInt();
     }
 }

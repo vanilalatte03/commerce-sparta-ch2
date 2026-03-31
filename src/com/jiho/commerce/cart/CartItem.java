@@ -1,13 +1,13 @@
-package com.jiho.commerce;
+package com.jiho.commerce.cart;
 
-import java.util.List;
+import com.jiho.commerce.catalog.Product;
 
 //장바구니
-public class ShoppingBasket {
+public class CartItem {
     private final Product product; //상품명, 가격
     private final int quantity; //수량
 
-    public ShoppingBasket(Product product, int quantity) {
+    public CartItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
@@ -20,9 +20,9 @@ public class ShoppingBasket {
         return quantity;
     }
 
-/*    public void addQuantity(int quantity) {
+    /*
+    public void addQuantity(int quantity) {
         this.quantity += quantity;
     }*/
 
 }
-

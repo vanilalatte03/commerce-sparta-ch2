@@ -1,4 +1,4 @@
-package com.jiho.commerce;
+package com.jiho.commerce.catalog;
 
 //상품
 public class Product {
@@ -22,7 +22,11 @@ public class Product {
         return stock;
     }
 
-    //재고 감소
+    /**
+     * 재고를 지정한 수량만큼 차감한다.
+     *
+     * @param quantity 차감할 수량
+     */
     public void decreaseStock(int quantity) {
         this.stock -= quantity;
     }

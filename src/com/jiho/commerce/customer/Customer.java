@@ -1,4 +1,4 @@
-package com.jiho.commerce;
+package com.jiho.commerce.customer;
 
 //고객
 public class Customer {
