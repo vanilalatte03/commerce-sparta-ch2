@@ -1,13 +1,11 @@
-package com.jiho.commerce;
+package com.jiho.commerce.app;
 
 import com.jiho.commerce.cart.Cart;
-import com.jiho.commerce.cart.CartItem;
 import com.jiho.commerce.catalog.Category;
-import com.jiho.commerce.catalog.Product;
 
 import java.util.List;
 
-public class OutputConsole {
+public class MainView {
 
     //메인 메뉴
     public void printMenu(List<Category> categories, Cart cart) {
@@ -29,19 +27,9 @@ public class OutputConsole {
         System.out.println("커머스 플랫폼을 종료합니다.");
     }
 
-    //주문 취소
-    public void printCancelOrderMessage() {
-        System.out.println("주문 취소");
-    }
-
     //유효x
     public void printInvalidCategoryMessage() {
         System.out.println("유효하지 않은 카테고리 번호입니다.");
-    }
-
-    //빈 줄
-    public void printBlankLine() {
-        System.out.println();
     }
 
 }

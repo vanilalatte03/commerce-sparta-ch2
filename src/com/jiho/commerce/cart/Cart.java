@@ -13,7 +13,6 @@ public class Cart {
         this.items = items;
     }
 
-    //장바구니가 비었는지 확인
     public boolean isEmpty() {
         return items.isEmpty();
     }
@@ -21,18 +20,18 @@ public class Cart {
     /**
      * 장바구니 항목을 읽기 전용으로 반환한다.
      *
-     * @return 수정할 수 없는 장바구니 항목 목록
+     * @return 외부에서 수정할 수 없는 장바구니 항목 목록
      */
     public List<CartItem> getItems() {
         return Collections.unmodifiableList(items);
     }
 
     /**
-     * 상품을 장바구니에 1개 추가한다.
      * 이미 장바구니에 담긴 동일 상품 수량까지 포함해 재고를 검사한다.
+     * 상품을 장바구니에 1개 추가한다.
      *
      * @param product 추가할 상품
-     * @return 장바구니 추가 성공 여부
+     * @return 재고 범위 내에서 추가되면 true, 아니면 false
      */
     public boolean addProduct(Product product) {
         int basketQuantity = 0;
@@ -51,7 +50,6 @@ public class Cart {
         return true;
     }
 
-    //최종 가격
     public int getTotalPrice() {
         int sumPrice = 0;
         for (CartItem basket : items) {
@@ -60,7 +58,6 @@ public class Cart {
         return sumPrice;
     }
 
-    //장바구니 비우기
     public void clear() {
         items.clear();
     }

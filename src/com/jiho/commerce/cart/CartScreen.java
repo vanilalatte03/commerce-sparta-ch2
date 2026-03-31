@@ -1,23 +1,21 @@
 package com.jiho.commerce.cart;
 
 import com.jiho.commerce.InputConsole;
-import com.jiho.commerce.app.Screen;
 import com.jiho.commerce.order.OrderService;
 
-public class CartScreen implements Screen {
+public class CartScreen {
     private final InputConsole inputConsole;
     private final CartView cartView;
     private final Cart cart;
     private final OrderService orderService;
 
-    public CartScreen(InputConsole inputConsole, CartView cartView,  Cart carts, OrderService orderService) {
+    public CartScreen(InputConsole inputConsole, CartView cartView,  Cart cart, OrderService orderService) {
         this.inputConsole = inputConsole;
         this.cartView = cartView;
-        this.cart = carts;
+        this.cart = cart;
         this.orderService = orderService;
     }
 
-    @Override
     public void show() {
         cartView.printCartItems(cart);
         cartView.printCartActionMenu();
@@ -27,5 +25,11 @@ public class CartScreen implements Screen {
             int totalPrice = orderService.checkout(cart);
             cartView.printOrderCompleted(totalPrice);
         }
+    }
+
+    //주문 취소
+    public void cancel() {
+        cart.clear();
+        cartView.printCancelOrderMessage();
     }
 }

@@ -1,6 +1,5 @@
 package com.jiho.commerce.cart;
 
-import com.jiho.commerce.app.Screen;
 import com.jiho.commerce.catalog.Product;
 
 import java.util.List;
@@ -36,4 +35,10 @@ public class CartView {
     public void printOrderCompleted(int totalPrice) {
         System.out.printf("주문이 완료되었습니다! 총 금액: %,10d원\n", totalPrice);
     }
+
+    //주문 취소
+    public void printCancelOrderMessage() {
+        System.out.println("주문 취소");
+    }
+
 }

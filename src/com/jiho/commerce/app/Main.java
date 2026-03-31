@@ -44,7 +44,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         InputConsole inputConsole = new InputConsole(scanner);
-        OutputConsole outputConsole = new OutputConsole();
+        MainView mainView = new MainView();
+
         OrderService orderService = new OrderService();
 
         Cart carts = new Cart(cartItems);
@@ -54,8 +55,7 @@ public class Main {
         CatalogView catalogView = new CatalogView();
         CatalogScreen catalogScreen = new CatalogScreen(inputConsole, catalogView, carts);
 
-
-        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, cartScreen, catalogScreen, inputConsole, outputConsole);
+        CommerceSystem commerceSystem = new CommerceSystem(categories, carts, cartScreen, catalogScreen, inputConsole, mainView);
         commerceSystem.start();
     }
 }
