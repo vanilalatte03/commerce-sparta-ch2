@@ -1,4 +1,4 @@
-package com.jiho.commerce;
+package com.jiho.commerce.io;
 
 import java.util.Scanner;
 
@@ -9,6 +9,10 @@ public class InputConsole {
         this.sc = sc;
     }
 
+    /**
+     * 한 줄 전체를 읽어 정수로 변환한다.
+     * nextInt() 대신 nextLine()을 사용해 개행이 남는 문제를 피한다.
+     */
     public int readInt() {
         while (true) {
             try {

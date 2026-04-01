@@ -1,6 +1,6 @@
 package com.jiho.commerce.product;
 
-import com.jiho.commerce.InputConsole;
+import com.jiho.commerce.io.InputConsole;
 import com.jiho.commerce.cart.Cart;
 
 public class ProductController {
@@ -19,7 +19,7 @@ public class ProductController {
      *
      * @param category 현재 조회 중인 카테고리
      */
-    public void show(Category category) {
+    public void showProductMenu(Category category) {
         productView.printProductMenu(category);
 
         int selectedProduct = inputConsole.readInt();

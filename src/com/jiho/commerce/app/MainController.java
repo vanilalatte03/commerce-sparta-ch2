@@ -1,8 +1,8 @@
 package com.jiho.commerce.app;
 
-import com.jiho.commerce.*;
 import com.jiho.commerce.admin.AdminController;
 import com.jiho.commerce.cart.Cart;
+import com.jiho.commerce.io.InputConsole;
 import com.jiho.commerce.order.OrderController;
 import com.jiho.commerce.product.Category;
 import com.jiho.commerce.product.ProductController;
@@ -10,7 +10,7 @@ import com.jiho.commerce.product.ProductController;
 import java.util.*;
 
 /**
- * 메인 메뉴를 반복 실행하며 카테고리 조회, 장바구니 확인, 주문 취소, 관리자 모드 흐름으로 분기
+ * 메인 메뉴를 반복 실행하며 카테고리 조회, 장바구니 확인, 주문 취소, 관리자 모드 흐름으로 분기한다.
  */
 public class MainController {
     private final List<Category> categories;
@@ -36,7 +36,7 @@ public class MainController {
 
     public void start() {
         while (true) {
-            //카테고리 개수에 따라 뒤에 동적으로 번호 변경
+            //카테고리 개수에 따라 동적으로 번호 변경
             int cartMenuNumber = categories.size() + 1;
             int cancelMenuNumber = categories.size() + 2;
             int adminMenuNumber = categories.size() + 3;
@@ -58,7 +58,7 @@ public class MainController {
 
             //관리자 모드
             if (selectedMenuNumber == adminMenuNumber){
-                adminController.show();
+                adminController.showAdminMenu();
                 continue;
             }
 
@@ -73,7 +73,7 @@ public class MainController {
             }
 
             Category selectedCategory = categories.get(selectedMenuNumber - 1);
-            productController.show(selectedCategory);
+            productController.showProductMenu(selectedCategory);
 
         }
     }

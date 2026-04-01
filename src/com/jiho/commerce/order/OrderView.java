@@ -33,13 +33,18 @@ public class OrderView {
         System.out.println("1. 주문 확정      2. 메인으로 돌아가기");
     }
 
+    /**
+     * 주문 완료 후 재고 변경 결과를 출력한다.
+     *
+     * @param orderedItems checkout 이전 상태를 복사해 둔 주문 항목 목록
+     */
     void printStockChanges(List<CartItem> orderedItems) {
         for (CartItem cartItem : orderedItems) {
             Product product = cartItem.getProduct();
 
-            //재고 감소 후
+            //checkout() 이후라 현재 재고는 이미 감소한 상태다.
             int afterStock = product.getStock();
-            //재고 감소 전
+            //주문 전 재고는 주문 수량을 다시 더해 역산한다.
             int beforeStock = afterStock + cartItem.getQuantity();
 
             System.out.printf("%s 재고가 %d개 -> %d개로 변경되었습니다.%n",

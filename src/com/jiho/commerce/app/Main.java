@@ -1,10 +1,11 @@
 package com.jiho.commerce.app;
 
-import com.jiho.commerce.*;
+import com.jiho.commerce.admin.AdminAuthService;
 import com.jiho.commerce.admin.AdminController;
 import com.jiho.commerce.admin.AdminView;
 import com.jiho.commerce.cart.Cart;
 import com.jiho.commerce.cart.CartItem;
+import com.jiho.commerce.io.InputConsole;
 import com.jiho.commerce.order.OrderController;
 import com.jiho.commerce.order.OrderView;
 import com.jiho.commerce.product.*;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 예제용 초기 데이터와 각 계층 객체를 조립한 뒤 메인 메뉴를 시작한다.
+ */
 public class Main {
     public static void main(String[] args) {
         List<Product> electronicsProducts = new ArrayList<>();
@@ -51,11 +55,12 @@ public class Main {
         OrderController orderController = new OrderController(inputConsole, orderView, carts, orderService);
 
         ProductView productView = new ProductView();
-        ProductService productService = new ProductService();
+        ProductAdminService productAdminService = new ProductAdminService();
         ProductController productController = new ProductController(inputConsole, productView, carts);
 
         AdminView adminView = new AdminView();
-        AdminController adminController = new AdminController(inputConsole, adminView, categories, productService, carts);
+        AdminAuthService adminAuthService = new AdminAuthService();
+        AdminController adminController = new AdminController(inputConsole, adminView, categories,adminAuthService, productAdminService, carts);
 
         MainView mainView = new MainView();
         MainController mainController = new MainController(categories, carts, orderController, productController, adminController, inputConsole, mainView);

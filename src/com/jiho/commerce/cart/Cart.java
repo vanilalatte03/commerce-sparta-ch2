@@ -5,7 +5,9 @@ import com.jiho.commerce.product.Product;
 import java.util.Collections;
 import java.util.List;
 
-//장바구니로 하는 일들
+/**
+ * 장바구니 항목을 관리하고 총 금액을 계산하는 도메인 객체다.
+ */
 public class Cart {
     private final List<CartItem> items;
 
@@ -30,7 +32,7 @@ public class Cart {
      * 이미 장바구니에 담긴 동일 상품 수량까지 포함해 재고를 검사한다.
      * 상품을 장바구니에 1개 추가한다.
      *
-     * @param product 추가할 상품
+     * @param product 장바구니에 추가할 상품
      * @return 재고 범위 내에서 추가되면 true, 아니면 false
      */
     public boolean addProduct(Product product) {
@@ -46,6 +48,7 @@ public class Cart {
             return false;
         }
 
+        //현재 구현은 같은 상품 수량을 합치지 않고 CartItem을 새로 추가한다.
         items.add(new CartItem(product, 1));
         return true;
     }
@@ -62,6 +65,11 @@ public class Cart {
         items.clear();
     }
 
+    /**
+     * 특정 상품을 참조하는 장바구니 항목을 모두 제거한다.
+     *
+     * @param product 장바구니에서 제거할 상품
+     */
     public void removeProduct(Product product) {
         items.removeIf(item -> item.getProduct() == product);
     }

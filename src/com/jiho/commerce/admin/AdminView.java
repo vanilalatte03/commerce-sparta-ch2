@@ -100,7 +100,7 @@ public class AdminView {
     }
 
     public void printCurrentProductInfo(Product product) {
-        System.out.printf("현재 상품 정보: %s | %,d원 | %s | 재고: %d개%n",
+        System.out.printf("현재 상품 정보: %s | %,d원 | %s | 재고: %d개\n",
                 product.getProductName(),
                 product.getPrice(),
                 product.getDescription(),
@@ -115,7 +115,7 @@ public class AdminView {
     }
 
     public void printCurrentPrice(int oldPrice) {
-        System.out.printf("현재 가격: %,d원%n", oldPrice);
+        System.out.printf("현재 가격: %,d원\n", oldPrice);
     }
 
     public void printNewPricePrompt() {
@@ -123,7 +123,7 @@ public class AdminView {
     }
 
     public void printPriceUpdatedMessage(String productName, int oldPrice, int newPrice) {
-        System.out.printf("%s의 가격이 %,d원 → %,d원으로 수정되었습니다.%n",
+        System.out.printf("%s의 가격이 %,d원 → %,d원으로 수정되었습니다.\n",
                 productName, oldPrice, newPrice);
     }
 
@@ -136,7 +136,7 @@ public class AdminView {
     }
 
     public void printDescriptionUpdatedMessage(String productName, String oldDescription, String newDescription) {
-        System.out.printf("%s의 설명이 \"%s\" → \"%s\"로 수정되었습니다.%n",
+        System.out.printf("%s의 설명이 \"%s\" → \"%s\"로 수정되었습니다.\n",
                 productName, oldDescription, newDescription);
     }
 
@@ -149,7 +149,7 @@ public class AdminView {
     }
 
     public void printStockUpdatedMessage(String productName, int oldStock, int newStock) {
-        System.out.printf("%s의 재고수량이 %d개 → %d개로 수정되었습니다.%n",
+        System.out.printf("%s의 재고수량이 %d개 → %d개로 수정되었습니다.\n",
                 productName, oldStock, newStock);
     }
 
