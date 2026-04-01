@@ -22,30 +22,30 @@ public class ProductController {
     public void show(Category category) {
         productView.printProductMenu(category);
 
-        int chooseProduct = inputConsole.readInt();
+        int selectedProduct = inputConsole.readInt();
 
         //메인 메뉴로 복귀
-        if (chooseProduct == 0) {
+        if (selectedProduct == 0) {
             productView.printBlankLine();
             return;
         }
 
-        if (chooseProduct < 1 || chooseProduct > category.getProducts().size()) {
+        if (selectedProduct < 1 || selectedProduct > category.getProducts().size()) {
             productView.printInvalidProductMessage();
             return;
         }
 
-        Product product = category.getProducts().get(chooseProduct - 1);
-        productView.printChooseProduct(product);
+        Product product = category.getProducts().get(selectedProduct - 1);
+        productView.printSelectProduct(product);
         confirmAddToCart(product);
     }
 
     //선택한 상품의 장바구니 추가 여부를 확인하고 결과를 처리
     private void confirmAddToCart(Product product) {
         productView.printAddCartMenu();
-        int chooseShoppingBaskets = inputConsole.readInt();
+        int selectedAddToCart = inputConsole.readInt();
 
-        if (chooseShoppingBaskets == 1) {
+        if (selectedAddToCart == 1) {
             if (cart.addProduct(product)) {
                 productView.printAddCartSuccess(product);
             } else {

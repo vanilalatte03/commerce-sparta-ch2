@@ -7,10 +7,7 @@ import com.jiho.commerce.cart.Cart;
 import com.jiho.commerce.cart.CartItem;
 import com.jiho.commerce.order.OrderController;
 import com.jiho.commerce.order.OrderView;
-import com.jiho.commerce.product.Category;
-import com.jiho.commerce.product.ProductController;
-import com.jiho.commerce.product.ProductView;
-import com.jiho.commerce.product.Product;
+import com.jiho.commerce.product.*;
 import com.jiho.commerce.order.OrderService;
 
 import java.util.ArrayList;
@@ -56,9 +53,10 @@ public class Main {
 
         ProductView productView = new ProductView();
         ProductController productScreen = new ProductController(inputConsole, productView, carts);
+        ProductService productService = new ProductService();
 
         AdminView adminView = new AdminView();
-        AdminController adminController = new AdminController(inputConsole, adminView);
+        AdminController adminController = new AdminController(inputConsole, adminView, categories, productService);
 
         MainController commerceSystem = new MainController(categories, carts, cartScreen, productScreen, adminController, inputConsole, mainView);
         commerceSystem.start();

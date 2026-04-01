@@ -18,7 +18,7 @@ public class ProductView {
     }
 
     //선택한 상품 정보
-    void printChooseProduct(Product product) {
+    void printSelectProduct(Product product) {
         System.out.printf("선택한 상품: %s | %,d원 | %s | 재고: %d개\n\n",
                 product.getProductName(),
                 product.getPrice(),

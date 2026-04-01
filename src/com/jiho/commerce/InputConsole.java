@@ -10,7 +10,13 @@ public class InputConsole {
     }
 
     public int readInt() {
-        return sc.nextInt();
+        while (true) {
+            try {
+                return Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해주세요.");
+            }
+        }
     }
 
     public String readLine() {

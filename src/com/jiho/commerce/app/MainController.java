@@ -42,37 +42,37 @@ public class MainController {
             int adminMenuNumber = categories.size() + 3;
             mainView.printMenu(categories, !cart.isEmpty(), cartMenuNumber, cancelMenuNumber, adminMenuNumber);
 
-            int chooseCategory = inputConsole.readInt();
+            int selectedMenuNumber = inputConsole.readInt();
 
             //장바구니 확인
-            if (!cart.isEmpty() && chooseCategory == cartMenuNumber) {
+            if (!cart.isEmpty() && selectedMenuNumber == cartMenuNumber) {
                 orderController.showOrderMenu();
                 continue;
             }
 
             //주문 취소
-            if (!cart.isEmpty() && chooseCategory == cancelMenuNumber) {
+            if (!cart.isEmpty() && selectedMenuNumber == cancelMenuNumber) {
                 orderController.cancel();
                 continue;
             }
 
             //관리자 모드
-            if (chooseCategory == adminMenuNumber){
+            if (selectedMenuNumber == adminMenuNumber){
                 adminController.show();
                 continue;
             }
 
             //프로그램 종료
-            if (chooseCategory == 0) {
+            if (selectedMenuNumber == 0) {
                 mainView.printExitMessage();
                 return;
-            } else if (chooseCategory < 0 || chooseCategory > categories.size()) {
+            } else if (selectedMenuNumber < 0 || selectedMenuNumber > categories.size()) {
                 //예외 처리
                 mainView.printInvalidCategoryMessage();
                 continue;
             }
 
-            Category selectedCategory = categories.get(chooseCategory - 1);
+            Category selectedCategory = categories.get(selectedMenuNumber - 1);
             productController.show(selectedCategory);
 
         }

@@ -19,4 +19,17 @@ public class Category {
     public List<Product> getProducts() {
         return products;
     }
+
+    public boolean hasProductName(String productName) {
+        for (Product product : products) {
+            if (product.getProductName().equals(productName.trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
 }
