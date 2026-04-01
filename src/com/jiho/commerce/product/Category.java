@@ -32,4 +32,8 @@ public class Category {
     public void addProduct(Product product) {
         products.add(product);
     }
+
+    public boolean removeProduct(Product product) {
+        return products.remove(product);
+    }
 }

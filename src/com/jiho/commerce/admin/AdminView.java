@@ -24,7 +24,6 @@ public class AdminView {
         System.out.println("1. 상품 추가");
         System.out.println("2. 상품 수정");
         System.out.println("3. 상품 삭제");
-        System.out.println("4. 전체 상품 현황");
         System.out.println("0. 메인으로 돌아가기");
     }
 
@@ -152,5 +151,22 @@ public class AdminView {
     public void printStockUpdatedMessage(String productName, int oldStock, int newStock) {
         System.out.printf("%s의 재고수량이 %d개 → %d개로 수정되었습니다.%n",
                 productName, oldStock, newStock);
+    }
+
+    public void printDeleteProductNamePrompt() {
+        System.out.print("삭제할 상품명을 입력해주세요: ");
+    }
+
+    public void printConfirmDeleteMenu() {
+        System.out.println("위 상품을 삭제하시겠습니까?");
+        System.out.println("1. 확인    2. 취소");
+    }
+
+    public void printDeleteCancelMessage() {
+        System.out.println("상품 삭제가 취소되었습니다.");
+    }
+
+    public void printDeleteSuccessMessage() {
+        System.out.println("상품이 성공적으로 삭제되었습니다.");
     }
 }

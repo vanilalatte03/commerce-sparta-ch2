@@ -43,22 +43,22 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         InputConsole inputConsole = new InputConsole(scanner);
-        MainView mainView = new MainView();
-
-        OrderService orderService = new OrderService();
 
         Cart carts = new Cart(cartItems);
+
         OrderView orderView = new OrderView();
-        OrderController cartScreen = new OrderController(inputConsole, orderView, carts, orderService);
+        OrderService orderService = new OrderService();
+        OrderController orderController = new OrderController(inputConsole, orderView, carts, orderService);
 
         ProductView productView = new ProductView();
-        ProductController productScreen = new ProductController(inputConsole, productView, carts);
         ProductService productService = new ProductService();
+        ProductController productController = new ProductController(inputConsole, productView, carts);
 
         AdminView adminView = new AdminView();
-        AdminController adminController = new AdminController(inputConsole, adminView, categories, productService);
+        AdminController adminController = new AdminController(inputConsole, adminView, categories, productService, carts);
 
-        MainController commerceSystem = new MainController(categories, carts, cartScreen, productScreen, adminController, inputConsole, mainView);
-        commerceSystem.start();
+        MainView mainView = new MainView();
+        MainController mainController = new MainController(categories, carts, orderController, productController, adminController, inputConsole, mainView);
+        mainController.start();
     }
 }

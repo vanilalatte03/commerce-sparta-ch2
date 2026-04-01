@@ -26,5 +26,15 @@ public class ProductService {
         return null;
     }
 
+    public boolean deleteProduct(List<Category> categories, Product targetProduct) {
+        for (Category category : categories) {
+            if (category.removeProduct(targetProduct)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 }

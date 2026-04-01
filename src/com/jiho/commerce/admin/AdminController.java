@@ -1,6 +1,7 @@
 package com.jiho.commerce.admin;
 
 import com.jiho.commerce.InputConsole;
+import com.jiho.commerce.cart.Cart;
 import com.jiho.commerce.product.Category;
 import com.jiho.commerce.product.Product;
 import com.jiho.commerce.product.ProductService;
@@ -12,12 +13,14 @@ public class AdminController {
     private final InputConsole inputConsole;
     private final List<Category> categories;
     private final ProductService productService;
+    private final Cart cart;
 
-    public AdminController(InputConsole inputConsole, AdminView adminView, List<Category> categories, ProductService productService) {
+    public AdminController(InputConsole inputConsole, AdminView adminView, List<Category> categories, ProductService productService, Cart cart) {
         this.inputConsole = inputConsole;
         this.adminView = adminView;
         this.categories = categories;
         this.productService = productService;
+        this.cart = cart;
     }
 
     public void show() {
@@ -37,8 +40,7 @@ public class AdminController {
                     updateProduct();
                     break;
                 case 3:
-                    break;
-                case 4:
+                    deleteProduct();
                     break;
                 case 0:
                     return;
@@ -99,6 +101,75 @@ public class AdminController {
 
         adminView.printAddSuccessMessage();
 
+    }
+
+    private Category selectCategory() {
+        adminView.printCategoryMenu(categories);
+
+        int categoryNumber = inputConsole.readInt();
+
+        if (categoryNumber < 1 || categoryNumber > categories.size()) {
+            adminView.printInvalidCategoryMessage();
+            return null;
+        }
+
+        return categories.get(categoryNumber - 1);
+    }
+
+    private String readProductName() {
+        while (true) {
+            adminView.printProductNamePrompt();
+            String productName = inputConsole.readLine();
+
+            if (productName.isBlank()) {
+                adminView.printBlankMessage();
+                continue;
+            }
+
+            return productName;
+        }
+    }
+
+    private int readPrice() {
+        while (true) {
+            adminView.printPricePrompt();
+            int price = inputConsole.readInt();
+
+            if (price <= 0) {
+                adminView.printInvalidNumberMessage();
+                continue;
+            }
+
+            return price;
+        }
+    }
+
+    private String readDescription() {
+        while (true) {
+            adminView.printDescriptionPrompt();
+            String description = inputConsole.readLine();
+
+            if (description.isBlank()) {
+                adminView.printBlankMessage();
+                continue;
+            }
+
+            return description;
+        }
+    }
+
+    private int readStock() {
+        while (true) {
+            adminView.printStockPrompt();
+            int stock = inputConsole.readInt();
+
+            if (stock <= 0) {
+                adminView.printInvalidNumberMessage();
+                continue;
+            }
+
+            return stock;
+        }
     }
 
     //상품 수정
@@ -190,73 +261,42 @@ public class AdminController {
         adminView.printStockUpdatedMessage(product.getProductName(), oldStock, newStock);
     }
 
-    private Category selectCategory() {
-        adminView.printCategoryMenu(categories);
+    //상품 삭제
+    private void deleteProduct() {
+        adminView.printDeleteProductNamePrompt();
+        String productName = inputConsole.readLine();
 
-        int categoryNumber = inputConsole.readInt();
-
-        if (categoryNumber < 1 || categoryNumber > categories.size()) {
-            adminView.printInvalidCategoryMessage();
-            return null;
+        if (productName.isBlank()) {
+            adminView.printBlankMessage();
+            return;
         }
 
-        return categories.get(categoryNumber - 1);
-    }
+        Product product = productService.findProductByName(categories, productName);
 
-    private String readProductName() {
-        while (true) {
-            adminView.printProductNamePrompt();
-            String productName = inputConsole.readLine();
-
-            if (productName.isBlank()) {
-                adminView.printBlankMessage();
-                continue;
-            }
-
-            return productName;
+        if (product == null) {
+            adminView.printProductNotFoundMessage();
+            return;
         }
-    }
 
-    private int readPrice() {
-        while (true) {
-            adminView.printPricePrompt();
-            int price = inputConsole.readInt();
+        adminView.printCurrentProductInfo(product);
+        adminView.printConfirmDeleteMenu();
 
-            if (price <= 0) {
-                adminView.printInvalidNumberMessage();
-                continue;
-            }
+        int confirm = inputConsole.readInt();
 
-            return price;
+        if (confirm != 1) {
+            adminView.printDeleteCancelMessage();
+            return;
         }
-    }
 
-    private String readDescription() {
-        while (true) {
-            adminView.printDescriptionPrompt();
-            String description = inputConsole.readLine();
+        boolean deleted = productService.deleteProduct(categories, product);
 
-            if (description.isBlank()) {
-                adminView.printBlankMessage();
-                continue;
-            }
-
-            return description;
+        if (!deleted) {
+            adminView.printProductNotFoundMessage();
+            return;
         }
-    }
 
-    private int readStock() {
-        while (true) {
-            adminView.printStockPrompt();
-            int stock = inputConsole.readInt();
-
-            if (stock <= 0) {
-                adminView.printInvalidNumberMessage();
-                continue;
-            }
-
-            return stock;
-        }
+        cart.removeProduct(product);
+        adminView.printDeleteSuccessMessage();
     }
 
 }

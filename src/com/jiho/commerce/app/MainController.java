@@ -10,7 +10,7 @@ import com.jiho.commerce.product.ProductController;
 import java.util.*;
 
 /**
- * 메인 메뉴를 반복 실행하며 카테고리 조회, 장바구니 확인, 주문 취소 흐름으로 분기
+ * 메인 메뉴를 반복 실행하며 카테고리 조회, 장바구니 확인, 주문 취소, 관리자 모드 흐름으로 분기
  */
 public class MainController {
     private final List<Category> categories;
