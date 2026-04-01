@@ -1,6 +1,8 @@
 package com.jiho.commerce.product;
 
 
+import java.util.List;
+
 public class ProductService {
 
     public boolean addProduct(Category category, String productName, int price, String description, int stock) {
@@ -12,5 +14,17 @@ public class ProductService {
         category.addProduct(product);
         return true;
     }
+
+    public Product findProductByName(List<Category> categories, String productName) {
+        for (Category category : categories) {
+            for (Product product : category.getProducts()) {
+                if (product.getProductName().equals(productName.trim())) {
+                    return product;
+                }
+            }
+        }
+        return null;
+    }
+
 
 }

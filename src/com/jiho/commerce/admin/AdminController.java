@@ -2,6 +2,7 @@ package com.jiho.commerce.admin;
 
 import com.jiho.commerce.InputConsole;
 import com.jiho.commerce.product.Category;
+import com.jiho.commerce.product.Product;
 import com.jiho.commerce.product.ProductService;
 
 import java.util.List;
@@ -33,8 +34,12 @@ public class AdminController {
                     addProduct();
                     break;
                 case 2:
+                    updateProduct();
+                    break;
                 case 3:
+                    break;
                 case 4:
+                    break;
                 case 0:
                     return;
                 default:
@@ -62,6 +67,7 @@ public class AdminController {
         return false;
     }
 
+    //상품 추가
     private void addProduct() {
         Category category = selectCategory();
         if (category == null) {
@@ -93,6 +99,95 @@ public class AdminController {
 
         adminView.printAddSuccessMessage();
 
+    }
+
+    //상품 수정
+    private void updateProduct() {
+        adminView.printUpdateProductNamePrompt();
+        String productName = inputConsole.readLine();
+
+        if (productName.isBlank()) {
+            adminView.printBlankMessage();
+            return;
+        }
+
+        Product product = productService.findProductByName(categories, productName);
+
+        if (product == null) {
+            adminView.printProductNotFoundMessage();
+            return;
+        }
+
+        adminView.printCurrentProductInfo(product);
+        adminView.printUpdateMenu();
+
+        int menu = inputConsole.readInt();
+
+        switch (menu) {
+            case 1:
+                updatePrice(product);
+                break;
+            case 2:
+                updateDescription(product);
+                break;
+            case 3:
+                updateStock(product);
+                break;
+            default:
+                adminView.printInvalidMenuMessage();
+        }
+    }
+
+    private void updatePrice(Product product) {
+        int oldPrice = product.getPrice();
+
+        adminView.printCurrentPrice(oldPrice);
+        adminView.printNewPricePrompt();
+        int newPrice = inputConsole.readInt();
+
+        if (newPrice <= 0) {
+            adminView.printInvalidNumberMessage();
+            return;
+        }
+
+        product.updatePrice(newPrice);
+
+        adminView.printPriceUpdatedMessage(product.getProductName(), oldPrice, newPrice);
+    }
+
+    private void updateDescription(Product product) {
+        String oldDescription = product.getDescription();
+
+        adminView.printCurrentDescription(oldDescription);
+        adminView.printNewDescriptionPrompt();
+        String newDescription = inputConsole.readLine();
+
+        if (newDescription.isBlank()) {
+            adminView.printBlankMessage();
+            return;
+        }
+
+        product.updateDescription(newDescription);
+
+        adminView.printDescriptionUpdatedMessage(product.getProductName(), oldDescription, newDescription);
+
+    }
+
+    private void updateStock(Product product) {
+        int oldStock = product.getStock();
+
+        adminView.printCurrentStock(oldStock);
+        adminView.printNewStockPrompt();
+        int newStock = inputConsole.readInt();
+
+        if (newStock < 0) {
+            adminView.printInvalidNumberMessage();
+            return;
+        }
+
+        product.updateStock(newStock);
+
+        adminView.printStockUpdatedMessage(product.getProductName(), oldStock, newStock);
     }
 
     private Category selectCategory() {

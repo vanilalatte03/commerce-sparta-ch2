@@ -3,8 +3,8 @@ package com.jiho.commerce.product;
 //상품
 public class Product {
     private final String productName; //상품명
-    private final int price; //가격
-    private final String description; //설명
+    private int price; //가격
+    private String description; //설명
     private int stock; //재고
 
     public Product(String productName, int price, String description, int stock) {
@@ -39,5 +39,16 @@ public class Product {
         return price;
     }
 
+    public void updatePrice(int price) {
+        this.price = price;
+    }
+
+    public void updateDescription(String description) {
+        this.description = description;
+    }
+
+    public void updateStock(int stock) {
+        this.stock = stock;
+    }
 
 }
